@@ -1,0 +1,35 @@
+extends layout_template
+
+block content
+  #container.col
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      a.navbar-brand(href='#')
+        img(src='/images/weeat-64.png', width='50', height='50', border='0')
+      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item.active
+            a.nav-link(href='/home')
+              | Home
+              span.sr-only (current)
+          li.nav-item.active
+            span.sr-only (current)
+            li.nav-item
+          a.nav-link(href='profile') Account settings
+            li.nav-item
+          a.nav-link(href='menuForm') Add items
+            li.nav-item
+          a.nav-link(href='menuList') Menu list
+        form.form-inline.my-2.my-lg-0(action='logout')
+          button.btn.btn-outline-danger.my-2.my-sm-0(type='submit') Logout
+    .alert.alert-info(role='alert') Welcome:  #{userDetails}
+
+    .custom-file
+      input#catagoryImage.catagoryImage(type='file')
+      label.custom-file-label(for='catagoryImage') Choose file
+
+
+
+
+

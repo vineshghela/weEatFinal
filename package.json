@@ -1,0 +1,47 @@
+{
+  "name": "weeat",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www",
+    "test": "mocha || true"
+  },
+  "dependencies": {
+    "0": "0.0.0",
+    "ajax-request": "^1.2.3",
+    "body-parser": "^1.18.3",
+    "bootstrap": "^4.2.1",
+    "chai-http": "^4.2.1",
+    "connect-session-firebase": "^5.13.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~4.1.1",
+    "express": "~4.16.4",
+    "express-session": "^1.15.6",
+    "firebase-admin": "^5.13.1",
+    "firebase-tools": "^6.7.1",
+    "firebaseauth": "^1.0.0",
+    "http-errors": "~1.6.2",
+    "jquery": "^3.4.0",
+    "json-aggregate": "^0.1.0",
+    "jsonata": "^1.6.4",
+    "morgan": "~1.9.0",
+    "nodemon": "^1.18.11",
+    "popper.js": "^1.14.6",
+    "pug": "^2.0.3",
+    "sinon": "^7.3.1",
+    "sinon-chai": "^3.3.0",
+    "stripe": "^6.28.0"
+  },
+  "description": "website for we_eat andorid application",
+  "main": "app.js",
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "chai": "^4.2.0",
+    "jest": "^24.7.1",
+    "mocha": "^6.1.4",
+    "superagent": "^5.0.2",
+    "supertest": "^4.0.2"
+  },
+  "author": "Vinesh Ghela",
+  "license": "ISC"
+}

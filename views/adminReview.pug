@@ -1,0 +1,68 @@
+extends layout_template
+
+block content
+  #container.col
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      navbar-brand(href='')
+        img(src='/images/weeat-64.png', width='50', height='50', border='0')
+      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item.active
+            a.nav-link(href='/home')
+              | Home
+              span.sr-only (current)
+          li.nav-item.active
+            span.sr-only (current)
+            li.nav-item
+          a.nav-link(href='profile') Account settings
+            li.nav-item
+          li.nav-item.dropdown
+            a#navbarDropdown.nav-link.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+              | Add record
+            .dropdown-menu(aria-labelledby='navbarDropdown')
+              a.nav-link(href='catagory') Catagory list
+              a.nav-link(href='allergy') allergy list
+              .dropdown-divider
+              a.nav-link(href='menuForm') Add items
+            li.nav-item
+          a.nav-link(href='menuList') Menu list
+            li.nav-item
+          a.nav-link(href='offer') Custom price offer
+            li.nav-item
+          a.nav-link(href='dashboard') Dashboard
+            li.nav-item
+          a.nav-link(href='addNewUser') Add new user                     
+            li.nav-item
+          a.nav-link(href='reviewOverview') Reviews
+        form.form-inline.my-2.my-lg-0(action='logout')
+          button.btn.btn-outline-danger.my-2.my-sm-0(type='submit') Logout
+    .alert.alert-info(role='alert') Welcome:  #{userDetails}
+  br
+  .container.col
+    .row
+      .col-md-1
+      .col-md-10
+          .alert.alert-success#UpdateMessage(role='alert') #{fbLoginError}
+          h1 All Reviews:
+          .table-responsive
+            table#menuItems.table.table-striped.table-sm
+              thead
+                tr
+                  th(scope='col',style="display:none;") unique key
+                  th(scope='col') Email
+                  th(scope='col') title
+                  th(scope='col') Review body
+                  th(scope='col') Delete
+              tbody
+              - var count=0;
+                each item, index in datalist
+                  tr
+                    td(style="display:none;")=key[index]
+                    td= item.Email
+                    td= item.title
+                    td= item.review
+                    td
+                      a.btn.btn-outline-danger(href='deleteReView/' + key[index]) Delete
+                    //- -console.log(item)

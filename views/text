@@ -1,0 +1,38 @@
+extends layout_template
+
+block content
+  #container.col
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      a.navbar-brand(href='#')
+        img(src='/images/weeat-64.png', width='50', height='50', border='0')
+      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item.active
+            a.nav-link(href='#')
+              | Home 
+              span.sr-only (current)
+          li.nav-item
+            a.nav-link(href='#') Who are we
+          li.nav-item.dropdown
+            a#navbarDropdown.nav-link.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+              | Dropdown
+            .dropdown-menu(aria-labelledby='navbarDropdown')
+              a.dropdown-item(href='#') Action
+              a.dropdown-item(href='#') Another action
+              .dropdown-divider
+              a.dropdown-item(href='#') Something else here
+          li.nav-item
+            a.nav-link.disabled(href='/signIn') Disabled
+        form.form-inline.my-2.my-lg-0(action='signIn')
+          button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Login
+    .jumbotron
+      h1.display-4 Welcom to WeEat
+      p.lead
+      | Saving time and giving time back to you!
+      hr.my-4
+      | 
+      p.lead
+      a.btn.btn-primary.btn-lg(href='signIn', role='button') Learn more
+

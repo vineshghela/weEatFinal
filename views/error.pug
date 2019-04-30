@@ -1,0 +1,9 @@
+extends layout_template
+
+block content
+  h1= message
+  h2= error.status
+  .alert.alert-danger(role='alert')
+    pre #{error.stack}
+  form.form-inline.my-2.my-lg-0(action='../home')
+    button.btn.btn-primary(type='submit') Home

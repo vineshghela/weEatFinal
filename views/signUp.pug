@@ -1,0 +1,28 @@
+extends layout_template
+
+block content
+  nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    a.navbar-brand(href='#')
+      img(src='/images/weeat-64.png', width='50', height='50', border='0')
+    button.navbar-toggler(type='button', data-target='#navbarNav', aria-controls='navbarNav', aria-expanded='true', aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+        #navbarNav.collapse.navbar-collapse
+          ul.navbar-nav
+            li.nav-item.active
+              a.nav-link(href='/')
+                | Home 
+                span.sr-only (current)
+            li.nav-item
+              a.nav-link(href='#') Who are we?
+        form.form-inline
+          button.btn.btn-outline-success(type='submit') Login
+      h1 Please login:
+        br
+        |
+        form
+        .FBlogin   
+          input#FbEmail.form-control(type='email', placeholder='Enter email')
+          |        
+          input#FBPass.form-control(type='password', placeholder='Password')
+          |
+          button.btn.btn-primary(type='submit') Submit

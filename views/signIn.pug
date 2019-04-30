@@ -1,0 +1,33 @@
+extends layout_template
+
+block content
+  #container.col
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      navbar-brand(href='')
+        img(src='/images/weeat-64.png', width='50', height='50', border='0')
+      nav.navbar.navbar-light.bg-light
+        span.navbar-brand.mb-0.h1 WeEAT
+      br
+    br
+    br
+    
+    .container.col
+          .row
+            .col-md-3
+            .col-md-6
+                h1 Please login:
+                form(action="/login", method='POST')
+                  .FBlogin
+                    input#FbEmail.form-control(type='email', placeholder='Enter email', name='email')
+                    |
+                    br        
+                    input#FbPass.form-control(type='password', placeholder='Password', name='password')
+                    |
+                    br
+                    button.btn.btn-outline-success.btn-lg.btn-block(type='submit',value ='submit') Login
+                    br
+                    a.btn.btn-outline-primary.btn-lg.btn-block(role='button', href='/' ) Go Back
+                    br
+                    a.forgot(href='#') Forgot your email or password?
+                    br
+                .alert.alert-danger#errorMessage(role='alert') #{fbLoginError}

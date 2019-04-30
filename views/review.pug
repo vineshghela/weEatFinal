@@ -1,0 +1,117 @@
+extends layout_template
+
+block content
+  #container.col
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      navbar-brand(href='')
+        img(src='/images/weeat-64.png', width='50', height='50', border='0')
+      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item.active
+            a.nav-link(href='/')
+              | Home 
+              span.sr-only (current)
+          li.nav-item
+            a.nav-link(href='/about') Who are we
+          li.nav-item
+            a.nav-link(href='/review') Reviews
+        form.form-inline.my-2.my-lg-0(action='signIn')
+          button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Login
+    br
+    br
+    br
+    br
+    
+    .row
+      .col-md-3
+      .col-md-6
+        h1 Reviews:
+        br
+        each item in datalist 
+          .row
+            .col-sm-12
+              .card.border-primary
+                .card-body.text-primary
+                  .card-body
+                    h5.card-header #{item.firstName} #{item.secondName} 
+                    -var order1 = item.rating
+                      case order1
+                          when "1"
+                            | &starf;  
+                          when "2"
+                            |&starf;&starf;
+                          when "3"
+                            | &starf;&starf;&starf;
+                          when "4"
+                            | &starf;&starf;&starf;&starf;
+                          when "5"
+                            | &starf;&starf;&starf;&starf;&starf;
+                      h5.card-title #{item.title} 
+                      p.card-text #{item.review}
+          br
+    br
+    br
+    hr
+    hr
+    .row
+      .col-md-3
+      .col-md-6
+        form(action="/addreview", method='POST')
+          // Form Name 
+          legend Leave a review :
+          // Text input
+        
+          label(for='FirstName')
+          input#FirstName.form-control.input-md(name='FirstName', type='text', placeholder='First Name', required='')
+          // Text input
+        
+          label(for='SecondName')
+          input#SecondName.form-control.input-md(name='SecondName', type='text', placeholder='SecondName', required='')
+          // Text input
+        
+          label(for='email')
+          input#email.form-control.input-md(name='email', type='email', placeholder='Email', required='')
+          // Multiple Checkboxes (inline)
+        
+          // Multiple Radios (inline)
+          br
+          label(for='radios') Select a rating 1 being lowest 5 being excellent
+          .col-md-12
+            label.radio-inline(for='radios-0')
+              input#radios(type='radio', name='radios', value='1', checked='checked')
+              | &starf;
+            br
+            label.radio-inline(for='radios-1')
+              input#radios(type='radio', name='radios', value='2')
+              | &starf; &starf; 
+            br
+            label.radio-inline(for='radios-2')
+              input#radios(type='radio', name='radios', value='3')
+              | &starf; &starf; &starf;
+            br
+            label.radio-inline(for='radios-3')
+              input#radios(type='radio', name='radios', value='4')
+              | &starf; &starf; &starf; &starf;
+            br
+            label.radio-inline(for='radios-4')
+              input#radios(type='radio', name='radios', value='5')
+              | &starf; &starf; &starf; &starf; &starf;
+          // Text input
+        
+          label(for='title')
+          input#SecondName.form-control.input-md(name='title', type='text', placeholder='Please enter a meaningful title', required='')
+          // Textarea
+        
+          label(for='review')
+          textarea#review.form-control(name='review') Please leave a review
+          // Button (Double)
+          br
+          button#submit.btn.btn-success(name='submit') Submit   
+          button#cancel.btn.btn-danger(name='cancel') Cancel
+    br
+    brbr
+  
+
+

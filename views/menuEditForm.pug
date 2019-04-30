@@ -1,0 +1,77 @@
+extends layout_template
+
+block content
+  #container.col
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      navbar-brand(href='')
+        img(src='/images/weeat-64.png', width='50', height='50', border='0')
+      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item.active
+            a.nav-link(href='/home')
+              | Home
+              span.sr-only (current)
+          li.nav-item.active
+            span.sr-only (current)
+            li.nav-item
+          a.nav-link(href='../profile') Account settings
+            li.nav-item
+          li.nav-item.dropdown
+            a#navbarDropdown.nav-link.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+              | Add record
+            .dropdown-menu(aria-labelledby='navbarDropdown')
+              a.nav-link(href='../catagory') Catagory list
+              a.nav-link(href='../allergy') allergy list
+              .dropdown-divider
+              a.nav-link(href='../menuForm') Add items
+            li.nav-item
+          a.nav-link(href='../menuList') Menu list
+            li.nav-item
+          a.nav-link(href='../offer') Custom price offer
+            li.nav-item
+          a.nav-link(href='../dashboard') Dashboard
+            li.nav-item
+          a.nav-link(href='../addNewUser') Add new user                     
+            li.nav-item
+          a.nav-link(href='reviewOverview') Reviews
+        form.form-inline.my-2.my-lg-0(action='../logout')
+          button.btn.btn-outline-danger.my-2.my-sm-0(type='submit') Logout
+  br
+  .row
+      .col-md-3
+      .col-md-6
+          .alert.alert-danger(role='alert') Product Key:  #{ datalist.userkey}
+          form(action="/UpdateMenuItem/"+ datalist.userkey , method='POST')
+              legend Edit menu item -
+              // Text input
+              label(for='productName') Product Name :
+              input#productName.form-control.input-md(name='productName', type='text',value=datalist.productName, required='True')
+              br
+              label(for='category') Product category :
+              select#category.form-control(name='category', selected= datalist.menuID, required='')
+                 each item in datalist1
+                   option(value= item.userkey)
+                      =item.name 
+                  
+              br
+              // Textarea
+              label(for='prodDescription') Product Description :
+              textarea#prodDescription.form-control(name='prodDescription' , required='True') #{datalist.productDescription}
+              br
+              // Select Multiple
+              label(for='Productallergy') Allergies :
+              select#Productallergy.form-control(name='Productallergy', selected= datalist.Productallergy, multiple='multiple', required='True')
+                 each item in datalist2
+                   option(value= item.allergyKey)
+                       =item.name
+              br
+              // Text input
+              label(for='price') price
+              input#price.form-control.input-md(name='price', type='text', placeholder='price (£)' ,value = datalist.productPrice, required='True')
+              br
+              button.btn.btn-outline-success.btn-lg.btn-block(type='submit',value ='submit') Update 
+          .col-md-3
+        
+

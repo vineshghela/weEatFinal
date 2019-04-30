@@ -1,0 +1,134 @@
+extends layout_template
+
+block content
+  #container.col
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      navbar-brand(href='')
+        img(src='/images/weeat-64.png', width='50', height='50', border='0')
+      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item.active
+            a.nav-link(href='/home')
+              | Home
+              span.sr-only (current)
+          li.nav-item.active
+            span.sr-only (current)
+            li.nav-item
+          a.nav-link(href='profile') Account settings
+            li.nav-item
+          li.nav-item.dropdown
+            a#navbarDropdown.nav-link.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+              | Add record
+            .dropdown-menu(aria-labelledby='navbarDropdown')
+              a.nav-link(href='catagory') Catagory list
+              a.nav-link(href='allergy') allergy list
+              .dropdown-divider
+              a.nav-link(href='menuForm') Add items
+            li.nav-item
+          a.nav-link(href='menuList') Menu list
+            li.nav-item
+          a.nav-link(href='offer') Custom price offer
+            li.nav-item
+          a.nav-link(href='dashboard') Dashboard
+            li.nav-item
+          a.nav-link(href='addNewUser') Add new user
+            li.nav-item
+          a.nav-link(href='reviewOverview') Reviews                
+        form.form-inline.my-2.my-lg-0(action='logout')
+          button.btn.btn-outline-danger.my-2.my-sm-0(type='submit') Logout
+  br
+  .container.col
+    br
+    .row
+      .col-md-3
+      .col-md-6
+    .container
+      .row.card-deck
+        .col.col-md-4.card
+          .row
+            .col
+              div
+              .col-md-5
+                .col-md-6
+                  i.fa.fa-user(style='font-size:63px; style=text-align:center;')
+                br
+                a.btn.btn-primary.btn-lg(role='button', href='#myModal1', data-bs-hover-animate='bounce', data-toggle='modal') Update username
+                #myModal1.modal.fade(role='dialog', tabindex='-1')
+                  .modal-dialog(role='document')
+                    .modal-content
+                      .modal-header
+                        h4 Update username
+                        button.close(type='button', data-dismiss='modal', aria-label='Close')
+                          span(aria-hidden='true') ×
+                      .modal-body
+                        p.text-center.text-muted form to be here
+                        form(action="/updateDisplayName", method='POST')
+                          // Text input
+                          label(for='displayName') Display Name:
+                          input#displayName.form-control.input-md(name='displayName', type='text', placeholder='Enter a nick name')
+                      .modal-footer
+                        button.btn.btn-danger(type='button', data-dismiss='modal') Close
+                        button.btn.btn-primary(type='submit') update
+        .col.col-md-4.card
+          .row
+            .col
+              div
+                i.fa.fa-envelope-o(style='font-size:63px;color:rgb(0,102,255);style=text-align:center;')
+                br
+                a.btn.btn-primary.btn-lg(role='button', href='#myModal2', data-bs-hover-animate='swing', data-toggle='modal') Update email
+                #myModal2.modal.fade(role='dialog', tabindex='-2')
+                  .modal-dialog(role='document')
+                    .modal-content
+                      .modal-header
+                        h4 Modal Title
+                        button.close(type='button', data-dismiss='modal', aria-label='Close')
+                          span(aria-hidden='true') ×
+                      .modal-body
+                        p.text-center.text-muted Description
+                        form(action="/updateEmail", method='POST')
+                          // Text input
+                          label(for='currentEmail') Current Email:
+                          input#currentEmail.form-control.input-md(name='currentEmail', type='text', placeholder='Enter current email')
+                          // Text input
+                          label(for='newEmail') New Email:
+                          input#newEmail.form-control.input-md(name='newEmail', type='text', placeholder='Enter New Email')
+                          // Text input
+                          label(for='confirmNewEmail') Confirm New Email:
+                          input#confirmNewEmail.form-control.input-md(name='confirmNewEmail', type='text', placeholder='Confirm Email')
+                          // Text input
+                          .modal-footer
+                            button.btn.btn-danger(type='button', data-dismiss='modal') Close
+                            button.btn.btn-primary(type='submit') Save
+        .col.col-md-4.card
+          .row
+            .col
+              div
+                i.fa.fa-lock(style='font-size:63px; style=text-align:center;')
+                br
+                a.btn.btn-primary.btn-lg(role='button', href='#myModal3', data-bs-hover-animate='swing', data-toggle='modal', ) Change password
+                #myModal3.modal.fade(role='dialog', tabindex='-3')
+                  .modal-dialog(role='document')
+                    .modal-content
+                      .modal-header
+                        h4 Modal Title
+                        button.close(type='button', data-dismiss='modal', aria-label='Close')
+                          span(aria-hidden='true') ×
+                      .modal-body
+                        p.text-center.text-muted Description 
+                        form(action="/updatePassword", method='POST')
+                          label(for='currentPassword') Current Password:
+                          input#currentPassword.form-control.input-md(name='currentPassword', type='password', placeholder='Enter Current password')
+                          // Text input
+                          label(for='newPassword') New Password:
+                          input#newPassword.form-control.input-md(name='newPassword', type='password', placeholder='New password')
+                          // Text input
+                          label(for='confirmNewPassword') Confirm New Password:
+                          input#confirmNewPassword.form-control.input-md(name='confirmNewPassword', type='password', placeholder='Confirm new Password')
+                          .modal-footer
+                            button.btn.btn-danger(type='button', data-dismiss='modal') Close
+                            button.btn.btn-primary(type='submit') submit
+      .col-md-3
+
+

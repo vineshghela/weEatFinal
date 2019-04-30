@@ -1,0 +1,94 @@
+extends layout_template
+
+block content
+  #container.col
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      navbar-brand(href='')
+        img(src='/images/weeat-64.png', width='50', height='50', border='0')
+      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item.active
+            a.nav-link(href='/home')
+              | Home
+              span.sr-only (current)
+          li.nav-item.active
+            span.sr-only (current)
+            li.nav-item
+          a.nav-link(href='profile') Account settings
+            li.nav-item
+          li.nav-item.dropdown
+            a#navbarDropdown.nav-link.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+              | Add record
+            .dropdown-menu(aria-labelledby='navbarDropdown')
+              a.nav-link(href='catagory') Catagory list
+              a.nav-link(href='allergy') allergy list
+              .dropdown-divider
+              a.nav-link(href='menuForm') Add items
+            li.nav-item
+          a.nav-link(href='menuList') Menu list
+            li.nav-item
+          a.nav-link(href='offer') Custom price offer
+            li.nav-item
+          a.nav-link(href='dashboard') Dashboard
+            li.nav-item
+          a.nav-link(href='addNewUser') Add new user                     
+            li.nav-item
+          a.nav-link(href='reviewOverview') Reviews
+        form.form-inline.my-2.my-lg-0(action='logout')
+          button.btn.btn-outline-danger.my-2.my-sm-0(type='submit') Logout
+    .alert.alert-info(role='alert') Welcome:  #{userDetails}
+  br
+
+
+
+  .container.col
+    .alert.alert-primary(role='alert')
+      |This page can be used to create a new special offer for customer.
+    .row
+      .col-md-3
+      .col-md-6
+        form(action="/addRecord", method='POST')
+            legend Create a new special offer - 
+            // Text input
+            label(for='productName') Product Name :
+            input#productName.form-control.input-md(name='productName', type='text', placeholder='Product Name', required='True')
+            br
+            // Text input
+            label(for='price') Percentage off (%)
+            input#price.form-control.input-md(name='offerPrice', type='text', placeholder='Percentage off (%)' , required='True')
+            br
+            button.btn.btn-outline-success.btn-lg.btn-block(type='submit',value ='submit') Add new entry
+        .col-md-3
+  .container.col
+    .row
+      .col-md-1
+      .col-md-10
+          h1 All items:
+          input#myInput(type='text', onkeyup='myFunction()', placeholder='Search for names..')
+          .table-responsive
+            table#menuItems.table.table-striped
+              thead
+                tr
+                  th(scope='col') Product Name
+                  th(scope='col') % Discont
+                  th(scope='col') Original price (£)
+                  th(scope='col') Price after Discount (£)
+                  th(scope='col') Status
+                  th(scope='col') Date last active
+                  th(scope='col') Activate/Deactivate
+              tbody
+              - var count=0;
+                  //each item in datalist
+                  tr
+                    td= 'test product name'
+                    td= '10%'
+                    td= 1.00
+                    td= 0.90
+                    td= 'Active'
+                    td= '01/02/2019'
+                    td
+                      button.btn.btn-danger(type='button', data-toggle='button', aria-pressed='false', autocomplete='off') STOP
+
+                    //- -console.log(item)

@@ -1,0 +1,53 @@
+extends layout_template
+
+block content
+  #container.col
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      navbar-brand(href='')
+        img(src='/images/weeat-64.png', width='50', height='50', border='0')
+      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item.active
+            a.nav-link(href='/')
+              | Home 
+              span.sr-only (current)
+          li.nav-item
+            a.nav-link(href='/about') Who are we
+          li.nav-item
+            a.nav-link(href='/review') Reviews
+        form.form-inline.my-2.my-lg-0(action='signIn')
+          button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Login
+    br
+    br
+    br
+    br
+    .article-list
+  .container
+    .intro
+      h2.text-center Who are we?
+      br
+      p.text-center
+        |WeEat - Giving time back to you
+    br
+    .row.articles
+      .col-sm-6.col-md-4.item
+        img.img-fluid(src='/images/weeat-64.png')
+        h3.name WeEat
+        p.description
+          | A solution to providing time back to you, allowing you to order, pay and collect at time convenient to you. 
+          |WeEat provides an android application for your users and a website portal for management.
+          |The website is provided with both user and managment in mind, ensuring ease of use combined with a modern design.
+      .col-sm-6.col-md-4.item
+        i.fa.fa-android(style='font-size:63px;color:rgb(164,198,57);')
+        h3.name Andorid application
+        p.description
+          | The android application is simple and modern application used in order to view , select and purchase your items andbe able to collect at a time convenient to you.
+      .col-sm-6.col-md-4.item
+        i.fa.fa-internet-explorer(style='font-size:63px;color:rgb(0,102,255);')
+        h3.name Web application
+        p.description
+          | The web application is used by management in order to add new items and and allow for stats to be provided in order to help tailor you menu for your customers.
+        
+
