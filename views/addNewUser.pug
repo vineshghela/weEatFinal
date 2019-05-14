@@ -74,9 +74,9 @@ block content
                   tr
                     -count = count+1;
                     td= count
-                    td= item.name
-                    td= item.userKey
+                    td= item.email
+                    td= item.uid
                     td
-                      a.btn.btn-outline-danger( href='deleteUser/'+ item.name +'/key/'+item.userKey) Delete
-                    //- -console.log(item)
+                      a.btn.btn-outline-danger( href='deleteUser/'+ item.email +'/key/'+item.uid) Delete
+                      //- -console.log(item)
 

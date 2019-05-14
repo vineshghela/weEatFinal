@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 //firebase module required
 var firebase = require('firebase');
-
+var admin = require('firebase-admin')
 //after auth route
 
 
@@ -110,25 +110,41 @@ router.get('/offer', function (req, res, next) {
 //Add new admin user 
 router.get('/addNewUser', function (req, res, next) {
   if (req.session.email) {
-      firebase.auth().onAuthStateChanged(function (user) {
-          console.log(user.email);
-
-          var data = []
-          var databaseRef = firebase.database().ref().child('authAdminUsers');
-          databaseRef.once('value', function (snapshot) {
-              snapshot.forEach(function (childSnapshot) {
-                  var childData = childSnapshot.val();
-                  data.push(childData)
-                  console.log(childData);
+          // console.log(user.email);
+          admin.auth().getUserByEmail(req.session.email).then(function(user){
+            var data =[]
+            admin.auth().listUsers().then(function(listUserResult){
+              listUserResult.users.forEach(function(userRecord){
+                data.push(userRecord.toJSON())
               });
               console.log(data)
               res.render('addNewUser', {
-                  title: 'WeEat-Add new user',
-                  userDetails: user.email,
-                  datalist: data
-              })
+                        title: 'WeEat-Add new user',
+                        userDetails: user.email,
+                        datalist: data
+                    })
+            })
+          }).catch(function(error){
+            console.log(error.message)
           })
-      })
+
+
+          // var data = []
+          // var databaseRef = firebase.database().ref().child('authAdminUsers');
+          // databaseRef.once('value', function (snapshot) {
+          //     snapshot.forEach(function (childSnapshot) {
+          //         var childData = childSnapshot.val();
+          //         data.push(childData)
+          //         console.log(childData);
+          //     });
+          //     console.log(data)
+          //     res.render('addNewUser', {
+          //         title: 'WeEat-Add new user',
+          //         userDetails: user.email,
+          //         datalist: data
+          //     })
+          // })
+      
   } else {
       console.log('you got kicked out')
       res.redirect('AccessDenied');

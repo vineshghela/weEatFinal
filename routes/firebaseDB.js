@@ -466,9 +466,9 @@ router.get('/deleteUser/:email/key/:key', function (req, res, next) {
         var UserEmail = req.params.email;
         console.log(UserEmail)
         console.log(Userid)
-        var databaseRef = firebase.database().ref().child('authAdminUsers/' + Userid);
-        databaseRef.remove();
-        console.log("deleted");
+        //var databaseRef = firebase.database().ref().child('authAdminUsers/' + Userid);
+        //databaseRef.remove();
+        //console.log("deleted");
         admin.auth().getUserByEmail(UserEmail)
             .then(function (userRecord) {
                 // See the UserRecord reference doc for the contents of userRecord.
@@ -476,7 +476,7 @@ router.get('/deleteUser/:email/key/:key', function (req, res, next) {
                 console.log(userRecord.toJSON().uid)
                 var user = userRecord.toJSON().uid
                 console.log(user)
-                admin.auth().deleteUser(user)
+                admin.auth().deleteUser(Userid)
                     .then(function () {
                         console.log('Successfully deleted user');
                     })
@@ -999,7 +999,7 @@ router.post('/addNewUserForm', function (req, res, next) {
         var email = req.body.email
         var password = req.body.password
         //Firebase function for adding record to realtime DB
-        var data = [];
+        var data = {};
         firebase.auth().createUserWithEmailAndPassword(email, password).then(function () {
                 var databaseRef = firebase.database().ref();
                 
