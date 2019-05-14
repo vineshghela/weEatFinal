@@ -42,6 +42,7 @@ router.post('/UpdateMenuItem/:key', function (req, res, next) {
       var productDescription = req.body.prodDescription
       var Productallergy = req.body.Productallergy
       var productPrice = req.body.price
+      var imageitem = req.body.menuImage
       //Firebase function for adding record to realtime DB
       var databaseRef = firebase.database().ref();
       var data = {};
@@ -52,7 +53,8 @@ router.post('/UpdateMenuItem/:key', function (req, res, next) {
           menuID: prodcat,
           productDescription: productDescription,
           Productallergy: Productallergy,
-          productPrice: productPrice
+          productPrice: productPrice,
+          image: imageitem
       }
       var updates = {};
       updates['/productItems/' + uid] = data;
@@ -117,7 +119,7 @@ router.get('/addNewUser', function (req, res, next) {
               snapshot.forEach(function (childSnapshot) {
                   var childData = childSnapshot.val();
                   data.push(childData)
-                  //console.log(childData);
+                  console.log(childData);
               });
               console.log(data)
               res.render('addNewUser', {

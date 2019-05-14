@@ -59,7 +59,7 @@ router.get('/home', function (req, res, next) {
                 data2.push(keyys)
                 data.push(snapshot2.val());
             });
-            console.log(data);
+           // console.log(data);
             firebase.auth().onAuthStateChanged(function (user) {
                 console.log(user.email)
                 res.render('home', {
@@ -77,7 +77,7 @@ router.get('/home', function (req, res, next) {
 });
 
 
-router.get('/update1/:prodStatus1', function (req, res, next) {
+router.post('/update1/:prodStatus1', function (req, res, next) {
     if (req.session.email) {
         var productID1 = req.params.prodStatus1;
         console.log(productID1);
@@ -97,7 +97,7 @@ router.get('/update1/:prodStatus1', function (req, res, next) {
     }
 
 });
-router.get('/update2/:prodStatus2', function (req, res, next) {
+router.post('/update2/:prodStatus2', function (req, res, next) {
     if (req.session.email) {
         var productID2 = req.params.prodStatus2;
         console.log(productID2);
@@ -115,7 +115,7 @@ router.get('/update2/:prodStatus2', function (req, res, next) {
         res.redirect('../AccessDenied');
     }
 });
-router.get('/update3/:prodStatus3', function (req, res, next) {
+router.post('/update3/:prodStatus3', function (req, res, next) {
     if (req.session.email) {
         var productID3 = req.params.prodStatus3;
         console.log(productID3);
@@ -140,12 +140,9 @@ router.post('/addRecord', function (req, res, next) {
         var prodName = req.body.productName
         var prodcat = req.body.category
         var productDescription = req.body.prodDescription
-        if (Productallergy != null) {
-            var Productallergy = req.body.Productallergy
-        } else {
-            var Productallergy = 'No alergies reported!'
-        }
+        var Productallergy = req.body.Productallergy
         var productPrice = req.body.price
+        var imageitem = req.body.menuImage
         //Firebase function for adding record to realtime DB
         var databaseRef = firebase.database().ref();
         var data = {};
@@ -158,7 +155,8 @@ router.post('/addRecord', function (req, res, next) {
                 menuID: prodcat,
                 productDescription: productDescription,
                 Productallergy: Productallergy,
-                productPrice: productPrice
+                productPrice: productPrice,
+                image: imageitem
             }
             var updates = {};
             updates['/productItems/' + uid] = data;
@@ -190,9 +188,15 @@ router.post('/addNewCatagory', function (req, res, next) {
                 name: catagoryName,
                 image: image
             }
-            var updates = [];
-            updates['/category/' + uid] = data;
-            databaseRef.update(updates);
+            // var updates = [];
+            // updates['/category/' + uid] = data;
+            // databaseRef.set(updates);
+            databaseRef.child('/category/' + uid).set({
+                userkey: uid,
+                name: catagoryName,
+                image: image});
+
+
             console.log('data1', data);
             console.log('successfullllll');
             //});
@@ -487,7 +491,7 @@ router.get('/deleteUser/:email/key/:key', function (req, res, next) {
         res.send(Userid, "------------", UserEmail)
     } else {
         console.log('you got kicked out')
-        res.redirect('AccessDenied');
+        res.redirect('../AccessDenied');
     }
 });
 
@@ -995,12 +999,14 @@ router.post('/addNewUserForm', function (req, res, next) {
         var email = req.body.email
         var password = req.body.password
         //Firebase function for adding record to realtime DB
-
+        var data = [];
         firebase.auth().createUserWithEmailAndPassword(email, password).then(function () {
                 var databaseRef = firebase.database().ref();
-                var data = {};
+                
                 databaseRef.once('value', function (snapshot) {
                     var uid = firebase.database().ref().child('authAdminUsers').push().key;
+                    console.log("adding to db")
+                    console.log(uid)
                     data = {
                         name: email,
                         userKey: uid
@@ -1011,16 +1017,34 @@ router.post('/addNewUserForm', function (req, res, next) {
                     console.log('data1', data);
                     //console.log('successfullllll');
                     //console.log(uid)
-                });
-            })
-            .catch(function (error) {
+                    console.log(email)
+            
+            }).catch(function (error) {
                 // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
                 console.log("error code", errorCode)
                 console.log("error message", errorMessage)
             });
-
+            
+            admin.auth().getUserByEmail(email)
+            .then(function (userRecord) {
+                // See the UserRecord reference doc for the contents of userRecord.
+                console.log('Successfully fetched user data:', userRecord.toJSON());
+                console.log(userRecord.toJSON().uid)
+                var user = userRecord.toJSON().uid
+                console.log(user)
+                admin.auth().setCustomUserClaims(user,{
+                    admin : true
+                })
+                }).then(function () {
+                    console.log("Has been made admin", email)
+    
+                    })
+                    .catch(function (error) {
+                        console.log('Error making user admin:', error);
+                    })
+            
         // var data = []
         // var databaseRef = firebase.database().ref().child('authAdminUsers');
         // databaseRef.once('value', function(snapshot) {
@@ -1031,7 +1055,9 @@ router.post('/addNewUserForm', function (req, res, next) {
         //     console.log(data)
         // })
         res.redirect('addNewUser');
-        //});
+    })
+    
+
     } else {
         console.log('you got kicked out')
         res.redirect('AccessDenied');

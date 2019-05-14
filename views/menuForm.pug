@@ -66,12 +66,15 @@ block content
             label(for='Productallergy') Allergies :
             select#Productallergy.form-control(name='Productallergy', multiple='multiple' , required='True')
               each item in datalist2
-                option(value= item.allergyKey)
+                option(value= item.name)
                     =item.name
             br
             // Text input
             label(for='price') price
             input#price.form-control.input-md(name='price', type='text', placeholder='price (£)' , required='True')
+            br    
+            label(for='menuImage') Menu Image
+            input#menuImage.form-control(type='text', placeholder='enter URL', name='menuImage' ,required='True' , autocomplete='new-password')
             br
             button.btn.btn-outline-success.btn-lg.btn-block(type='submit',value ='submit') Add new entry
         .col-md-3

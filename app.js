@@ -5,6 +5,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session'); 
 
+var bodyParser = require('body-parser') 
+var exhbs = require('express-handlebars')
+var nodemailer = require('nodemailer')
+
 //firebase variable
 var fireBase = require('firebase-admin');
 var firebase = require('firebase');
@@ -68,7 +72,7 @@ app.use('/', firebaseDBRouter);
 const stripe = require('stripe')('sk_test_9qlxQnmTZy9yFWpP0WThPmbg');
 ////////////////////////////////////////////////////////////
 
-var bodyParser = require('body-parser') 
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: true
@@ -78,26 +82,71 @@ app.post('/charge', (req, res) => {
 
   const token = req.body.stripeToken;
   const amount = req.body.amount;
-
+  const email = req.body.email;
+ // console.log(email)
   stripe.charges.create({
     amount: amount,
     currency: "gbp",
     source: token
-  }).then(charge => res.send(charge))
-  .catch(err => {
+
+  }).then(charge => res.send(charge),
+    
+    function nodemailItem(){
+      const output = `
+      <p>You have a new contact request</p>
+      <h3>Contact Details</h3>
+      <ul>  
+        <li>Purpose: WeEat Order </li>
+        // <li>Email: ${req.body.email}</li>
+        <li>Amount: ${req.body.amount} </li>
+      </ul>
+      <h3>Message</h3>
+      <p>Order Completed and will be ready soon </p>
+    `;
+    let transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      //port: 587,
+      secure: false, // true for 465, false for other ports
+      auth: {
+          user: 'weeat.orders@gmail.com', // generated ethereal user
+          pass: 'Ghela2010'  // generated ethereal password
+      },
+      tls:{
+        rejectUnauthorized:false
+      }
+    });
+    console.log(email)
+    var newemail = email;
+    // setup email data with unicode symbols
+    let mailOptions = {
+      
+        from: '"WeEat Orders"<weeat.orders@gmail.com>', // sender address
+        to: newemail, // list of receivers
+        subject: 'WeEat Order payment', // Subject line
+        text: 'Order has been paid for and is starting to be made.', // plain text body
+        html: output // html body
+    };
+  
+    // send mail with defined transport object
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('Message sent: %s', info.messageId);   
+        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+  
+    });
+    }
+  
+    ).catch(err => {
     console.log("Error:" + err);
     res.status(500).send({error: "Purchase Failed"})
   })
+  console.log("we can only try")
 
+
+  
 });
-
-////////////////////////////////////////////////////////////
-//used for testing 
- app.get('/charge', (req, res) => {
-   res.send('stripe charg GET')
- });
-
- 
 
 
 // catch 404 error(page not found) and forward to error handler
@@ -116,6 +165,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(3000);
+//app.listen(3000);
 
 module.exports = app;
